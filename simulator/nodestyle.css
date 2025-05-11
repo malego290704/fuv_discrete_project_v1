@@ -23,6 +23,7 @@
 
 .display-node-circle:hover {
     box-shadow: 0px 0px 16px gray;
+    cursor: grab;
 }
 
 .display-node-tag-box {

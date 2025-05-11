@@ -100,19 +100,19 @@ function max_flow(default_graph) {
 }
 
 
-const default_graph = [
-    ['s', 't', 'A', 'B', 'C', 'D'],
-    [
-        ['s', 'A', 7],
-        ['s', 'D', 4],
-        ['D', 'A', 3],
-        ['A', 'B', 5],
-        ['D', 'C', 2],
-        ['A', 'C', 3],
-        ['C', 'B', 3],
-        ['B', 't', 8],
-        ['C', 't', 5]
-    ]
-]
+// const default_graph = [
+//     ['s', 't', 'A', 'B', 'C', 'D'],
+//     [
+//         ['s', 'A', 7],
+//         ['s', 'D', 4],
+//         ['D', 'A', 3],
+//         ['A', 'B', 5],
+//         ['D', 'C', 2],
+//         ['A', 'C', 3],
+//         ['C', 'B', 3],
+//         ['B', 't', 8],
+//         ['C', 't', 5]
+//     ]
+// ]
 
-console.log(max_flow(default_graph));
+// console.log(max_flow(default_graph));

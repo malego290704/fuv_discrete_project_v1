@@ -123,7 +123,7 @@ for (i = 0; i < default_graph[1].length; i++) {
     }
     if (ids !== null && idd !== null) {
         let newline = document.createElementNS('http://www.w3.org/2000/svg', 'line')
-        newline.setAttribute('marker-start', 'url(#edgebeginmarker)')
+        // newline.setAttribute('marker-start', 'url(#edgebeginmarker)')
         newline.setAttribute('marker-end', 'url(#edgeendmarker)')
         newline.classList.add('connection')
         let newline2 = document.createElementNS('http://www.w3.org/2000/svg', 'line')
@@ -177,4 +177,16 @@ function onNodeDrop(ev) {
 function onNodeDragover(ev) {
     ev.preventDefault()
     ev.dataTransfer.dropEffect = 'move'
+}
+
+function onRunAlgorithm(ev) {
+    let res = max_flow(default_graph)
+    for (i = 0; i < nodelinklist.length; i++) {
+        nodelinklist[i].flow = res.G[nodelistmap.get(nodelinklist[i].drain).display].filter(e => nodelistmap.get(nodelinklist[i].source).display == e.to)[0].cap
+    }
+}
+function onClearResult(ev) {
+    for (i = 0; i < nodelinklist.length; i++) {
+        nodelinklist[i].flow = 0
+    }
 }
