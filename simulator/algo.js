@@ -92,7 +92,11 @@ function max_flow(default_graph) {
     maxFlow += aug;
   }
 
-  return maxFlow;
+  const res ={};
+  res.maxFlow = maxFlow;
+  res.G = G;
+  
+  return res;
 }
 
 
