@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Simulator</title><link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Lexend+Deca:wght@100..900&display=swap" rel="stylesheet">
+    <!-- <script src="https://cdn.jsdelivr.net/npm/victor@1.1.0/index.min.js"></script> -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/victor/1.1.0/victor.min.js" integrity="sha512-95CHLV2JB3ympqgc+wIbh0pTwobPqIfF31hZ97gbaTeigAUgIXJnux7uzcfB86nlzXcMM8tMoj8tdrYgTZF9vA==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+    <script src="https://unpkg.com/ulid@2.4.0/dist/index.umd.js"></script>
+    <script src="default_graph.js"></script>
+    <script src="math.js"></script>
+    <script src="model.js"></script>
+    <script src="script.js" defer></script>
+    <link rel="stylesheet" href="style.css">
+    <link rel="stylesheet" href="nodestyle.css">
+</head>
+<body>
+    <main>
+        <section id="simulator">
+            <div id="display" ondrop="onNodeDrop(event)" ondragover="onNodeDragover(event)">
+                <template id="display-node-template">
+                    <div class="display-node" draggable="true" ondragstart="onNodeDrag(event)" ondragend="onNodeRelease(event)">
+                        <div class="display-node-circle">
+                            <div class="display-node-tag-box">
+                                <h2 class="display-node-tag"></h2>
+                            </div>
+                        </div>
+                    </div>
+                </template>
+                <svg id="canvas" xmlns="http://www.w3.org/2000/svg">
+                    <defs>
+                        <marker id="edgebeginmarker" markerWidth="3" markerHeight="3" refX="-1" refY="1.5" orient="auto">
+                            <path d="M 0 0 L 3 1.5 L 0 3 z" fill="gray"/>
+                        </marker>
+                        <marker id="edgeendmarker" markerWidth="3" markerHeight="3" refX="3" refY="1.5" orient="auto">
+                            <path d="M 0 0 L 3 1.5 L 0 3 z" fill="gray"/>
+                        </marker>
+                    </defs>
+                </svg>
+            </div>
+        </section>
+        <section id="controller"></section>
+    </main>
+</body>
+</html>
