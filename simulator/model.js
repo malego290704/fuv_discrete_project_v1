@@ -22,7 +22,7 @@ class DisplayNode {
 }
 
 class DisplayNodeLink {
-    constructor(_ids, _idd, _cap, _dom, _dom2) {
+    constructor(_ids, _idd, _cap, _dom, _dom2, _dom3, _dom4) {
         this.id = ULID.ulid()
         this.source = _ids
         this.drain = _idd
@@ -30,6 +30,11 @@ class DisplayNodeLink {
         this.flow = 0
         this.dom = _dom
         this.dom2 = _dom2
+        this.dom3 = _dom3
+        this.dom4 = _dom4
+        this.dom3.id = `path.${this.id}`
+        this.dom4.setAttribute('href', `#path.${this.id}`)
+        this.dom4.textContent = `0/${this.capacity}`
     }
     updateDOMpos(x1, y1, x2, y2) {
         this.dom.setAttribute('x1', x1)
@@ -41,5 +46,7 @@ class DisplayNodeLink {
         this.dom2.setAttribute('y1', y1)
         this.dom2.setAttribute('x2', x1 + dx * fill)
         this.dom2.setAttribute('y2', y1 + dy * fill)
+        this.dom3.setAttribute('d', `M${x1} ${y1} L${x2} ${y2}`)
+        this.dom4.textContent = `${this.flow}/${this.capacity}`
     }
 }

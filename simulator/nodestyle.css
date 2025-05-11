@@ -44,7 +44,7 @@
 }
 .connection-fill {
     stroke: whitesmoke;
-    stroke-width: 4px;
+    stroke-width: 6px;
     stroke-linecap: round;
     z-index: 2;
 }

@@ -1,10 +1,14 @@
 const gravityCoef = 1.1
-const repulsionCoef = 8000.0
-const attractionCoef = 0.2
-const targetLinkLength = 200
+const repulsionCoef = 10000.0
+const attractionCoef = 0.3
+const targetLinkLength = 300
 
 let display_element = document.getElementById('display')
 let canvas_element = document.getElementById('canvas')
+let canvas_element_a = document.getElementById('canvas-arrow')
+let canvas_element_f = document.getElementById('canvas-flow')
+let canvas_element_p = document.getElementById('canvas-path')
+let canvas_element_t = document.getElementById('canvas-text')
 let cw = null, ch = null
 let nodelist = null
 
@@ -16,6 +20,10 @@ function updateDBCR() {
     ch = dbcr.height
 }
 updateDBCR()
+
+nodelist = []
+nodelistmap = new Map()
+nodelinklist = []
 
 function updateDisplay() {
     for (i = 0; i < nodelist.length; i++) {
@@ -71,9 +79,6 @@ function updatePositions() {
 }
 
 
-nodelist = []
-nodelistmap = new Map()
-nodelinklist = []
 const template = document.querySelector("#display-node-template")
 // for (i = 0; i < 100; i++) {
 //     if ("content" in document.createElement("template")) {
@@ -123,13 +128,19 @@ for (i = 0; i < default_graph[1].length; i++) {
         newline.classList.add('connection')
         let newline2 = document.createElementNS('http://www.w3.org/2000/svg', 'line')
         newline2.classList.add('connection-fill')
-        nodelinklist.push(new DisplayNodeLink(ids, idd, default_graph[1][i][2], newline, newline2))
-        canvas_element.appendChild(newline)
-        fillbarStack.push(newline2)
+        let newline3 = document.createElementNS('http://www.w3.org/2000/svg', 'path')
+        let newline4 = document.createElementNS('http://www.w3.org/2000/svg', 'textPath')
+        let newline5 = document.createElementNS('http://www.w3.org/2000/svg', 'text')
+        newline5.appendChild(newline4)
+        newline5.setAttribute('dy', '-16px')
+        newline4.setAttribute('text-anchor', 'middle')
+        newline4.setAttribute('startOffset', '50%')
+        nodelinklist.push(new DisplayNodeLink(ids, idd, default_graph[1][i][2], newline, newline2, newline3, newline4))
+        canvas_element_a.appendChild(newline)
+        canvas_element_f.appendChild(newline2)
+        canvas_element_p.appendChild(newline3)
+        canvas_element_t.appendChild(newline5)
     }
-}
-while (fillbarStack.length > 0) {
-    canvas_element.appendChild(fillbarStack.pop())
 }
 
 
