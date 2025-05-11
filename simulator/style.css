@@ -51,6 +51,7 @@ main {
     height: 100%;
     width: 100%;
     user-select: none;
+    overflow: hidden;
 }
 
 h1 {
@@ -70,6 +71,7 @@ article {
 }
 .btn:hover {
     cursor: pointer;
+    transform: translateY(-2px);
 }
 #btn-run {
     background-color: lightgreen;
@@ -82,4 +84,10 @@ article {
 }
 #btn-clear:hover {
     box-shadow: 0px 0px 16px -2px red;
+}
+#btn-import {
+    background-color: lightskyblue;
+}
+#btn-import:hover {
+    box-shadow: 0px 0px 16px -2px skyblue;
 }

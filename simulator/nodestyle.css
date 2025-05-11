@@ -6,7 +6,7 @@
     width: 0px;
     height: 0px;
     position: relative;
-    transition: 400ms;
+    transition: 200ms;
     transition-timing-function:linear;
 }
 

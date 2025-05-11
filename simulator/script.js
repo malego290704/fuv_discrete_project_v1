@@ -1,16 +1,15 @@
 const gravityCoef = 1.1
 const repulsionCoef = 10000.0
 const attractionCoef = 0.3
-const targetLinkLength = 300
+const targetLinkLength = 250
 
 let display_element = document.getElementById('display')
-let canvas_element = document.getElementById('canvas')
+// let canvas_element = document.getElementById('canvas')
 let canvas_element_a = document.getElementById('canvas-arrow')
 let canvas_element_f = document.getElementById('canvas-flow')
 let canvas_element_p = document.getElementById('canvas-path')
 let canvas_element_t = document.getElementById('canvas-text')
 let cw = null, ch = null
-let nodelist = null
 
 let physics = true
 
@@ -21,9 +20,9 @@ function updateDBCR() {
 }
 updateDBCR()
 
-nodelist = []
-nodelistmap = new Map()
-nodelinklist = []
+let nodelist = []
+let nodelistmap = new Map()
+let nodelinklist = []
 
 function updateDisplay() {
     for (i = 0; i < nodelist.length; i++) {
@@ -80,74 +79,77 @@ function updatePositions() {
 
 
 const template = document.querySelector("#display-node-template")
-// for (i = 0; i < 100; i++) {
-//     if ("content" in document.createElement("template")) {
-//         let clone = template.content.cloneNode(true)
-//         let element = clone.querySelector('.display-node')
-//         nodelist.push(new DisplayNode(cw / 2 + noise(cw / 100), ch / 2 + noise(ch / 100), element, i.toString(), true))
-//         display_element.appendChild(element)
-//     }
-// }
-for (i = 0; i < default_graph[0].length; i++) {
-    if ("content" in document.createElement("template")) {
-        let clone = template.content.cloneNode(true)
-        let element = clone.querySelector('.display-node')
-        let newdn = new DisplayNode(cw / 2 + noise(cw / 10), ch / 2 + noise(ch / 10), element, default_graph[0][i], true)
-        nodelist.push(newdn)
-        nodelistmap.set(newdn.id, newdn)
-        display_element.appendChild(element)
-    }
-}
-nodelist[0].physics = false
-nodelist[0].p.x = 100
-nodelist[0].p.y = 100
-nodelist[0].updateDOMpos()
-nodelist[1].physics = false
-nodelist[1].p.x = cw - 100
-nodelist[1].p.y = ch - 100
-nodelist[1].updateDOMpos()
-let fillbarStack = []
-for (i = 0; i < default_graph[1].length; i++) {
-    if (default_graph[1][i][0] == default_graph[1][i][1]) {
-        continue
-    }
-    let ids = null
-    let idd = null
-    for (j = 0; j < nodelist.length; j++) {
-        if (nodelist[j].display == default_graph[1][i][0]) {
-            ids = nodelist[j].id
-        }
-        if (nodelist[j].display == default_graph[1][i][1]) {
-            idd = nodelist[j].id
+function generateNodes(graphdata) {
+    display_element.replaceChildren()
+    canvas_element_a.replaceChildren()
+    canvas_element_f.replaceChildren()
+    canvas_element_p.replaceChildren()
+    canvas_element_t.replaceChildren()
+    nodelist = []
+    nodelistmap = new Map()
+    nodelinklist = []
+    for (i = 0; i < graphdata[0].length; i++) {
+        if ("content" in document.createElement("template")) {
+            let clone = template.content.cloneNode(true)
+            let element = clone.querySelector('.display-node')
+            let newdn = new DisplayNode(cw / 2 + noise(cw / 10), ch / 2 + noise(ch / 10), element, graphdata[0][i], true)
+            nodelist.push(newdn)
+            nodelistmap.set(newdn.id, newdn)
+            display_element.appendChild(element)
         }
     }
-    if (ids !== null && idd !== null) {
-        let newline = document.createElementNS('http://www.w3.org/2000/svg', 'line')
-        // newline.setAttribute('marker-start', 'url(#edgebeginmarker)')
-        newline.setAttribute('marker-end', 'url(#edgeendmarker)')
-        newline.classList.add('connection')
-        let newline2 = document.createElementNS('http://www.w3.org/2000/svg', 'line')
-        newline2.classList.add('connection-fill')
-        let newline3 = document.createElementNS('http://www.w3.org/2000/svg', 'path')
-        let newline4 = document.createElementNS('http://www.w3.org/2000/svg', 'textPath')
-        let newline5 = document.createElementNS('http://www.w3.org/2000/svg', 'text')
-        newline5.appendChild(newline4)
-        newline5.setAttribute('dy', '-16px')
-        newline4.setAttribute('text-anchor', 'middle')
-        newline4.setAttribute('startOffset', '50%')
-        nodelinklist.push(new DisplayNodeLink(ids, idd, default_graph[1][i][2], newline, newline2, newline3, newline4))
-        canvas_element_a.appendChild(newline)
-        canvas_element_f.appendChild(newline2)
-        canvas_element_p.appendChild(newline3)
-        canvas_element_t.appendChild(newline5)
+    nodelist[0].physics = false
+    nodelist[0].p.x = 100
+    nodelist[0].p.y = 100
+    nodelist[0].updateDOMpos()
+    nodelist[1].physics = false
+    nodelist[1].p.x = cw - 100
+    nodelist[1].p.y = ch - 100
+    nodelist[1].updateDOMpos()
+    for (i = 0; i < graphdata[1].length; i++) {
+        if (graphdata[1][i][0] == graphdata[1][i][1]) {
+            continue
+        }
+        let ids = null
+        let idd = null
+        for (j = 0; j < nodelist.length; j++) {
+            if (nodelist[j].display == graphdata[1][i][0]) {
+                ids = nodelist[j].id
+            }
+            if (nodelist[j].display == graphdata[1][i][1]) {
+                idd = nodelist[j].id
+            }
+        }
+        if (ids !== null && idd !== null) {
+            let newline = document.createElementNS('http://www.w3.org/2000/svg', 'line')
+            newline.setAttribute('marker-end', 'url(#edgeendmarker)')
+            newline.classList.add('connection')
+            let newline2 = document.createElementNS('http://www.w3.org/2000/svg', 'line')
+            newline2.classList.add('connection-fill')
+            let newline3 = document.createElementNS('http://www.w3.org/2000/svg', 'path')
+            let newline4 = document.createElementNS('http://www.w3.org/2000/svg', 'textPath')
+            let newline5 = document.createElementNS('http://www.w3.org/2000/svg', 'text')
+            newline5.appendChild(newline4)
+            newline5.setAttribute('dy', '-16px')
+            newline4.setAttribute('text-anchor', 'middle')
+            newline4.setAttribute('startOffset', '50%')
+            nodelinklist.push(new DisplayNodeLink(ids, idd, graphdata[1][i][2], newline, newline2, newline3, newline4))
+            canvas_element_a.appendChild(newline)
+            canvas_element_f.appendChild(newline2)
+            canvas_element_p.appendChild(newline3)
+            canvas_element_t.appendChild(newline5)
+        }
     }
 }
 
+
+
+generateNodes(default_graph)
 
 updatePositions()
 setInterval(() => {
     if (physics) updatePositions()
-}, 200);
+}, 100);
 
 
 let dragged_element = null
@@ -180,13 +182,28 @@ function onNodeDragover(ev) {
 }
 
 function onRunAlgorithm(ev) {
-    let res = max_flow(default_graph)
+    graphdata = [[], []]
+    for (i = 0; i < nodelist.length; i++) {
+        graphdata[0].push(nodelist[i].id)
+    }
     for (i = 0; i < nodelinklist.length; i++) {
-        nodelinklist[i].flow = res.G[nodelistmap.get(nodelinklist[i].drain).display].filter(e => nodelistmap.get(nodelinklist[i].source).display == e.to)[0].cap
+        graphdata[1].push([nodelinklist[i].source, nodelinklist[i].drain, nodelinklist[i].capacity])
+    }
+    let res = max_flow(graphdata)
+    for (i = 0; i < nodelinklist.length; i++) {
+        nodelinklist[i].flow = res.G[nodelinklist[i].drain].filter(e => nodelinklist[i].source == e.to)[0].cap
     }
 }
 function onClearResult(ev) {
     for (i = 0; i < nodelinklist.length; i++) {
         nodelinklist[i].flow = 0
+    }
+}
+function onImportGraph(ev) {
+    let graphdata = prompt('Paste graph data here')
+    if (isJsonString(graphdata)) {
+        generateNodes(JSON.parse(graphdata))
+    } else {
+        alert('Invalid JSON! No graph imported')
     }
 }

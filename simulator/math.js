@@ -17,3 +17,12 @@ function noise(scale = 1) {
 function clamp(number, min, max) {
     return Math.max(min, Math.min(number, max));
 }
+
+function isJsonString(str) {
+    try {
+        JSON.parse(str);
+    } catch (e) {
+        return false;
+    }
+    return true;
+}

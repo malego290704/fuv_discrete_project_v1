@@ -20,30 +20,30 @@
 <body>
     <main>
         <section id="simulator">
-            <div id="display" ondrop="onNodeDrop(event)" ondragover="onNodeDragover(event)">
-                <template id="display-node-template">
-                    <div class="display-node" draggable="true" ondragstart="onNodeDrag(event)" ondragend="onNodeRelease(event)">
-                        <div class="display-node-circle">
-                            <div class="display-node-tag-box">
-                                <h2 class="display-node-tag"></h2>
-                            </div>
+            <template id="display-node-template">
+                <div class="display-node" draggable="true" ondragstart="onNodeDrag(event)" ondragend="onNodeRelease(event)">
+                    <div class="display-node-circle">
+                        <div class="display-node-tag-box">
+                            <h2 class="display-node-tag"></h2>
                         </div>
                     </div>
-                </template>
-                <svg id="canvas" xmlns="http://www.w3.org/2000/svg">
-                    <defs>
-                        <marker id="edgebeginmarker" markerWidth="3" markerHeight="3" refX="-1" refY="1.5" orient="auto">
-                            <path d="M 0 0 L 3 1.5 L 0 3 z" fill="gray"/>
-                        </marker>
-                        <marker id="edgeendmarker" markerWidth="3" markerHeight="3" refX="4" refY="1.5" orient="auto">
-                            <path d="M 0 0 L 3 1.5 L 0 3 z" fill="gray"/>
-                        </marker>
-                    </defs>
-                    <g id="canvas-arrow"></g>
-                    <g id="canvas-flow"></g>
-                    <g id="canvas-path"></g>
-                    <g id="canvas-text"></g>
-                </svg>
+                </div>
+            </template>
+            <svg id="canvas" xmlns="http://www.w3.org/2000/svg">
+                <defs>
+                    <marker id="edgebeginmarker" markerWidth="3" markerHeight="3" refX="-1" refY="1.5" orient="auto">
+                        <path d="M 0 0 L 3 1.5 L 0 3 z" fill="gray"/>
+                    </marker>
+                    <marker id="edgeendmarker" markerWidth="3" markerHeight="3" refX="4" refY="1.5" orient="auto">
+                        <path d="M 0 0 L 3 1.5 L 0 3 z" fill="gray"/>
+                    </marker>
+                </defs>
+                <g id="canvas-arrow"></g>
+                <g id="canvas-flow"></g>
+                <g id="canvas-path"></g>
+                <g id="canvas-text"></g>
+            </svg>
+            <div id="display" ondrop="onNodeDrop(event)" ondragover="onNodeDragover(event)">
             </div>
         </section>
         <section id="controller">
@@ -51,6 +51,8 @@
                 <h1>Discrete Mathematics<br>Final Project</h1>
                 <div class="btn" id="btn-run" onclick="onRunAlgorithm(event)">Run algorithm</div>
                 <div class="btn" id="btn-clear" onclick="onClearResult(event)">Clear result</div>
+                <div class="btn" id="btn-import" onclick="onImportGraph(event)">Import graph</div>
+                <span>Project by Nguyen Hoang Minh & Nguyen Cao Minh Tuan</span>
             </article>
         </section>
     </main>
