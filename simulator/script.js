@@ -3,13 +3,16 @@ const repulsionCoef = 10000.0
 const attractionCoef = 0.3
 const targetLinkLength = 250
 
-let display_element = document.getElementById('display')
-// let canvas_element = document.getElementById('canvas')
-let canvas_element_a = document.getElementById('canvas-arrow')
-let canvas_element_f = document.getElementById('canvas-flow')
-let canvas_element_p = document.getElementById('canvas-path')
-let canvas_element_t = document.getElementById('canvas-text')
+const display_element = document.getElementById('display')
+// const canvas_element = document.getElementById('canvas')
+const canvas_element_a = document.getElementById('canvas-arrow')
+const canvas_element_f = document.getElementById('canvas-flow')
+const canvas_element_p = document.getElementById('canvas-path')
+const canvas_element_t = document.getElementById('canvas-text')
 let cw = null, ch = null
+
+const algorithm_result = document.getElementById('algorithm-result')
+const algorithm_result_mf = document.getElementById('algorithm-result-mf')
 
 let physics = true
 
@@ -193,15 +196,20 @@ function onRunAlgorithm(ev) {
     for (i = 0; i < nodelinklist.length; i++) {
         nodelinklist[i].flow = res.G[nodelinklist[i].drain].filter(e => nodelinklist[i].source == e.to)[0].cap
     }
+    algorithm_result_mf.innerText = res.maxFlow
+    algorithm_result.style.removeProperty('display')
 }
 function onClearResult(ev) {
     for (i = 0; i < nodelinklist.length; i++) {
         nodelinklist[i].flow = 0
     }
+    algorithm_result_mf.innerText = null
+    algorithm_result.style.display = 'none'
 }
 function onImportGraph(ev) {
     let graphdata = prompt('Paste graph data here')
     if (isJsonString(graphdata)) {
+        onClearResult()
         generateNodes(JSON.parse(graphdata))
     } else {
         alert('Invalid JSON! No graph imported')

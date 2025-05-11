@@ -65,9 +65,18 @@ article {
     gap: 32px;
 }
 
+#algorithm-result {
+    border: 2px gray solid;
+    padding: 16px;
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+}
+
 .btn {
     padding: 16px;
     transition: 200ms;
+    text-align: center;
 }
 .btn:hover {
     cursor: pointer;
