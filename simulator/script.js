@@ -13,6 +13,10 @@ let cw = null, ch = null
 
 const algorithm_result = document.getElementById('algorithm-result')
 const algorithm_result_mf = document.getElementById('algorithm-result-mf')
+let settings_open = false
+const settings_btn = document.getElementById('settings-btn')
+const settings_btn_icon = document.getElementById('settings-btn-icon-span')
+const settings_menu = document.getElementById('settings-menu')
 
 let physics = true
 
@@ -156,16 +160,18 @@ setInterval(() => {
 
 
 let dragged_element = null
+let physics_drag = null
 function onNodeDrag(ev) {
     dragged_element = ev.srcElement
     dragged_element.style.opacity = '20%'
+    physics_drag = physics
     physics = false
 }
 function onNodeRelease(ev) {
     ev.preventDefault()
     dragged_element.style.opacity = '100%'
     dragged_element = null
-    physics = true
+    physics = physics_drag
 }
 function onNodeDrop(ev) {
     ev.preventDefault()
@@ -178,6 +184,7 @@ function onNodeDrop(ev) {
             break
         }
     }
+    updateDisplay()
 }
 function onNodeDragover(ev) {
     ev.preventDefault()
@@ -214,4 +221,23 @@ function onImportGraph(ev) {
     } else {
         alert('Invalid JSON! No graph imported')
     }
+}
+
+function onSettingsToggle(ev) {
+    if (settings_open) {
+        settings_btn_icon.classList.remove('settings-btn-icon-active')
+        settings_menu.style.display = 'none'
+        settings_open = false
+    } else {
+        settings_btn_icon.classList.add('settings-btn-icon-active')
+        settings_menu.style.display = 'block'
+        settings_open = true
+    }
+}
+function onDisablePhysics(ev) {
+    physics = !ev.target.checked
+}
+function onEnablePhysicsEnds(ev) {
+    nodelist[0].physics = ev.target.checked
+    nodelist[1].physics = ev.target.checked
 }

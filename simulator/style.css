@@ -100,3 +100,23 @@ article {
 #btn-import:hover {
     box-shadow: 0px 0px 16px -2px skyblue;
 }
+
+#settings-btn {
+    display: flex;
+    padding: 16px;
+    background-color: lightgray;
+    transition: 200ms;
+}
+#settings-btn:hover {
+    background-color: gray;
+}
+#settings-btn-icon {
+    border: solid black;
+    border-width: 0 3px 3px 0;
+    display: inline-block;
+    padding: 5px;
+    transform: rotate(45deg);
+}
+.settings-btn-icon-active {
+    transform: rotate(180deg) translateY(-5px);
+}

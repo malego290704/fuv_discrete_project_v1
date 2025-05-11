@@ -56,6 +56,25 @@
                 </div>
                 <div class="btn" id="btn-clear" onclick="onClearResult(event)">Clear result</div>
                 <div class="btn" id="btn-import" onclick="onImportGraph(event)">Import graph</div>
+                <div id="settings" style="user-select: none;">
+                    <div id="settings-btn" onclick="onSettingsToggle(event)">
+                        <span style="flex-grow: 1;">Settings</span>
+                        <span id="settings-btn-icon-span"><i id="settings-btn-icon"></i></span>
+                        <span style="width: 5px;"></span>
+                    </div>
+                    <div id="settings-menu" style="display: none; border: 2px lightgray solid;">
+                        <div style="padding: 16px; display: flex; flex-direction: column; gap: 8px;">
+                            <div>
+                                <input type="checkbox" id="disable-physics" onclick="onDisablePhysics(event)">
+                                <label for="disable-physics">Disable physics</label>
+                            </div>
+                            <div>
+                                <input type="checkbox" id="enable-physics-ends" onclick="onEnablePhysicsEnds(event)">
+                                <label for="enable-physics-ends">Enable physics for source and sink nodes</label>
+                            </div>
+                        </div>
+                    </div>
+                </div>
                 <span>Project by Nguyen Hoang Minh & Nguyen Cao Minh Tuan</span>
             </article>
         </section>
